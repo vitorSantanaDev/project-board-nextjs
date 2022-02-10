@@ -6,6 +6,8 @@ interface Props {
   title: string
 }
 
+const floo = 'bbsbs'
+
 export default function Home({ title = 'Next App' }: Props) {
   return (
     <div className={styles.container}>
