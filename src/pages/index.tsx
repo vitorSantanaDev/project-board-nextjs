@@ -17,8 +17,7 @@ export default function Home({ title = 'Next App' }: PropsHome) {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to{' '}
-          <a href="https://nextjs.org">Project Board with / Next.js!</a>
+          Welcome to <a href="https://nextjs.org">{title}</a>
         </h1>
 
         <p className={styles.description}>
