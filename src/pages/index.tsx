@@ -7,6 +7,7 @@ interface Props {
 }
 
 const floo = 'bbsbs'
+const floo2 = 'bbsbs'
 
 export default function Home({ title = 'Next App' }: Props) {
   return (
