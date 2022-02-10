@@ -2,11 +2,11 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
-interface Props {
+interface PropsHome {
   title: string
 }
 
-export default function Home({ title = 'Next App' }: Props) {
+export default function Home({ title = 'Next App' }: PropsHome) {
   return (
     <div className={styles.container}>
       <Head>
