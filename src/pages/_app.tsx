@@ -1,5 +1,6 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import Header from 'components/Header'
 
 import GlobalStyles from 'styles/globalStyles'
 
@@ -16,6 +17,7 @@ function App({ Component, pageProps }: AppProps) {
         />
       </Head>
       <GlobalStyles />
+      <Header />
       <Component {...pageProps} />
     </>
   )
