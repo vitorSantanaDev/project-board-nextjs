@@ -1,5 +1,11 @@
-import PreLoading from 'components/PreLoading'
+import Head from 'next/head'
 
 export default function Home() {
-  return <PreLoading />
+  return (
+    <>
+      <Head>
+        <title>Board | Organizando suas tarefas</title>
+      </Head>
+    </>
+  )
 }
