@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Home /> should match snapshot 1`] = `
+.c0 {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c1 {
+  margin-top: 4rem;
+}
+
+.c2 {
+  max-width: 700px;
+}
+
+.c3 {
+  color: #141a29;
+  font-size: 2.8rem;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.c4 {
+  margin-top: 2rem;
+  color: #141a29;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.c4 span {
+  color: #04dd75;
+  font-weight: bold;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin: 2.5rem 0 2.5rem 0;
+}
+
+.c5 img {
+  width: 65px;
+  height: 65px;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 3px solid #141a29;
+  -webkit-transition: ease-in-out 0.3s;
+  transition: ease-in-out 0.3s;
+}
+
+.c5 img + img {
+  margin-left: 1.5rem;
+}
+
+.c5 img:hover {
+  opacity: 0.8;
+  -webkit-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  transform: scale(1.05);
+}
+
+<main
+  class="c0"
+  role="main"
+>
+  <img
+    alt="Ilustração contendo uma pessoa utilizando um notebook"
+    class="c1"
+    role="img"
+    src="/images/hero-illustration.svg"
+  />
+  <section
+    class="c2"
+  >
+    <h1
+      class="c3"
+      role="heading"
+    >
+      Uma ferramenta para seu dia a dia Escreva, planeje e organize-se...
+    </h1>
+    <h3
+      class="c4"
+      role="heading"
+    >
+      <span>
+        100% Gratuita
+      </span>
+       e online
+    </h3>
+  </section>
+  <div
+    class="c5"
+  >
+    <img
+      alt="Foto de um homem ruivo com óculos"
+      src="/images/person-exemple.png"
+    />
+  </div>
+</main>
+`;
