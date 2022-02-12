@@ -2,7 +2,7 @@ import SigInButton from '../SigInButton'
 import Link from 'next/link'
 import * as S from './styles'
 
-const Header = () => {
+const Header: React.FC = () => {
   return (
     <S.Wrapper>
       <S.HeaderContent>

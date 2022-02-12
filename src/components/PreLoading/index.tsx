@@ -1,6 +1,6 @@
 import * as S from './styles'
 
-const PreLoading = () => {
+const PreLoading: React.FC = () => {
   return (
     <S.Wrapper>
       <S.Logo
