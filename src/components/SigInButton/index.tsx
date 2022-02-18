@@ -7,10 +7,13 @@ const SigInButton: React.FC = () => {
   const session = useSession()
   return (
     <>
-      {session ? (
+      {session.data ? (
         <S.ButtonWrapper type="button" onClick={() => signOut()}>
-          <img src="/images/person-exemple.png" alt="Photo do usário logado" />
-          Olá Harry
+          <img
+            src={session.data.user?.image || ''}
+            alt="Photo do usário logado"
+          />
+          Olá {session.data.user?.name}
           <FiLogOut color="#737380" className="logoutIcon" />
         </S.ButtonWrapper>
       ) : (
