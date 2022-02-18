@@ -22,6 +22,7 @@ export const ButtonWrapper = styled.button`
   img {
     width: 45px;
     height: 45px;
+    border-radius: 50%;
     margin-right: 1.2rem;
   }
 
