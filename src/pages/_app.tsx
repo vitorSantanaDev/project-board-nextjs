@@ -1,12 +1,14 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import Header from 'components/Header'
+import Header from '../components/Header'
 
-import GlobalStyles from 'styles/globalStyles'
+import { SessionProvider } from 'next-auth/react'
 
-function App({ Component, pageProps }: AppProps) {
+import GlobalStyles from '../styles/globalStyles'
+
+function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
-    <>
+    <SessionProvider session={session}>
       <Head>
         <title>Project Board | Next.js</title>
         <link rel="shortcut icon" href="/images/icon-board.png" />
@@ -19,7 +21,7 @@ function App({ Component, pageProps }: AppProps) {
       <GlobalStyles />
       <Header />
       <Component {...pageProps} />
-    </>
+    </SessionProvider>
   )
 }
 
