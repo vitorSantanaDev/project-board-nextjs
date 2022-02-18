@@ -1,12 +1,9 @@
 import { render, screen } from '@testing-library/react'
 import SigInButton from '.'
-import { mockProps } from './mockProps'
 
 describe('<SigInButton />', () => {
   it('should render the username', () => {
-    render(
-      <SigInButton onClick={mockProps.onClick} session={mockProps.session} />
-    )
+    render(<SigInButton />)
     const buttonSessionTruthy = screen.getByRole('button', {
       name: /olá harry/i
     })
@@ -14,9 +11,7 @@ describe('<SigInButton />', () => {
   })
 
   it('should render the text button', () => {
-    render(
-      <SigInButton onClick={mockProps.onClick} session={!mockProps.session} />
-    )
+    render(<SigInButton />)
     const buttonSessionFalse = screen.getByRole('button', {
       name: /entrar com github/i
     })
@@ -24,7 +19,7 @@ describe('<SigInButton />', () => {
   })
 
   it('should match snapshot', () => {
-    const { container } = render(<SigInButton {...mockProps} />)
+    const { container } = render(<SigInButton />)
     expect(container.firstChild).toMatchSnapshot()
   })
 })
