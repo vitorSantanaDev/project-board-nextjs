@@ -1,8 +1,9 @@
-import { NextPage } from 'next'
 import Head from 'next/head'
+import { GetServerSideProps, NextPage } from 'next'
 import { FiPlus, FiCalendar, FiEdit2, FiTrash, FiClock } from 'react-icons/fi'
-import * as S from '../../styles/pages/BoardStyles'
+import { getSession } from 'next-auth/react'
 import SupportButton from '../../components/SupportButton'
+import * as S from '../../styles/pages/BoardStyles'
 
 const Board: NextPage = () => {
   return (
@@ -51,6 +52,23 @@ const Board: NextPage = () => {
       <SupportButton />
     </>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = await getSession({ req })
+  if (!session?.user?.name) {
+    // Se o user não estiver logado, vai ser redirecionado
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
+  console.log(session.user)
+  return {
+    props: {}
+  }
 }
 
 export default Board

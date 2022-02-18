@@ -1,4 +1,4 @@
-import { NextPage } from 'next'
+import { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import * as S from '../styles/pages/HomeStyles'
 
@@ -31,6 +31,13 @@ const Home: NextPage = () => {
       </S.Wrapper>
     </>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  return {
+    props: {},
+    revalidate: 60 * 60
+  }
 }
 
 export default Home
