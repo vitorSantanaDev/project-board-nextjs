@@ -9,13 +9,14 @@ export default NextAuth({
     })
   ],
   callbacks: {
-    async session({ session, user }) {
+    async session({ session, token }) {
       try {
         return {
           ...session,
-          id: user.id
+          id: token.sub
         }
       } catch (error) {
+        console.log(error)
         return {
           ...session,
           id: null
@@ -23,8 +24,7 @@ export default NextAuth({
       }
     },
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    async signIn({ user, account, profile }) {
+    signIn({ user, profile }) {
       const { email } = user
       try {
         return true
