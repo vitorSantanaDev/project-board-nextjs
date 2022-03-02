@@ -2,6 +2,15 @@ import Link from 'next/link'
 import { FiCalendar, FiEdit2, FiTrash } from 'react-icons/fi'
 import * as S from './styles'
 
+interface Task {
+  id: string
+  userId: string
+  name: string
+  tarefa: string
+  created: Date
+  createdFormated?: string
+}
+
 interface TaskListProps {
   tasks: {
     id: string
@@ -11,9 +20,15 @@ interface TaskListProps {
     created: Date
     createdFormated?: string
   }[]
+  handleClickButtonDeleteTask: (taskId: string) => void
+  handleClickButtonEditTask: (taskId: Task) => void
 }
 
-const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
+const TaskList: React.FC<TaskListProps> = ({
+  tasks,
+  handleClickButtonDeleteTask,
+  handleClickButtonEditTask
+}) => {
   return (
     <>
       {tasks.map((task) => (
@@ -28,12 +43,14 @@ const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
                   <FiCalendar size={20} color="#FFB800" />
                   <time>{task.createdFormated}</time>
                 </div>
-                <S.ButtonEdit>
+                <S.ButtonEdit onClick={() => handleClickButtonEditTask(task)}>
                   <FiEdit2 size={20} color="#FFF" />
                   <span>Editar</span>
                 </S.ButtonEdit>
               </div>
-              <S.ButtonDelete>
+              <S.ButtonDelete
+                onClick={() => handleClickButtonDeleteTask(task.id)}
+              >
                 <FiTrash size={20} color="#FF3636" />
                 <span>Excluir</span>
               </S.ButtonDelete>

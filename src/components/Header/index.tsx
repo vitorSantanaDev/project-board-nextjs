@@ -17,7 +17,7 @@ const Header: React.FC = () => {
           <Link href="/board">Meu Board</Link>
         </S.Navigation>
 
-        <SigInButton session={true} />
+        <SigInButton />
       </S.HeaderContent>
     </S.Wrapper>
   )
