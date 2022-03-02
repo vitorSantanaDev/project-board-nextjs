@@ -11,9 +11,13 @@ interface TaskListProps {
     created: Date
     createdFormated?: string
   }[]
+  handleClickButtonDelete: (taskId: string) => void
 }
 
-const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
+const TaskList: React.FC<TaskListProps> = ({
+  tasks,
+  handleClickButtonDelete
+}) => {
   return (
     <>
       {tasks.map((task) => (
@@ -33,7 +37,7 @@ const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
                   <span>Editar</span>
                 </S.ButtonEdit>
               </div>
-              <S.ButtonDelete>
+              <S.ButtonDelete onClick={() => handleClickButtonDelete(task.id)}>
                 <FiTrash size={20} color="#FF3636" />
                 <span>Excluir</span>
               </S.ButtonDelete>

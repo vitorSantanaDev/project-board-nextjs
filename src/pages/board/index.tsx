@@ -1,45 +1,107 @@
 import Head from 'next/head'
+import { FormEvent, SetStateAction, useState } from 'react'
+import firebase from '../../services/firebaseConnections'
+import { format } from 'date-fns'
 import { GetServerSideProps, NextPage } from 'next'
-import { FiPlus, FiCalendar, FiEdit2, FiTrash, FiClock } from 'react-icons/fi'
+import { FiClock } from 'react-icons/fi'
 import { getSession } from 'next-auth/react'
 import SupportButton from '../../components/SupportButton'
+import TaskList from '../../components/TaskList'
+import Form from '../../components/Form'
 import * as S from '../../styles/pages/BoardStyles'
+interface DataBoardProps {
+  dataUser: {
+    id: string
+    name: string
+  }
+  data: string
+}
 
-const Board: NextPage = () => {
+interface TaskListProps {
+  id: string
+  userId: string
+  name: string
+  tarefa: string
+  created: Date
+  createdFormated?: string
+}
+
+const Board: NextPage<DataBoardProps> = ({ dataUser, data }) => {
+  const [input, setInput] = useState<string>('')
+  const [taskList, setTaskList] = useState<TaskListProps[]>(JSON.parse(data))
+
+  const handleChangeInput = (event: {
+    target: { value: SetStateAction<string> }
+  }) => {
+    setInput(event.target.value)
+  }
+
+  const creatingTaskTheDataBase = async (): Promise<void> => {
+    return firebase
+      .firestore()
+      .collection('tarefas')
+      .add({
+        created: new Date(),
+        tarefa: input,
+        userId: dataUser.id,
+        nome: dataUser.name
+      })
+      .then((doc) => {
+        const data = {
+          id: doc.id,
+          userId: dataUser.id,
+          name: dataUser.name,
+          tarefa: input,
+          created: new Date(),
+          createdFormated: format(new Date(), 'dd MMM yyyy')
+        }
+        setTaskList([...taskList, data])
+      })
+      .catch((error) => console.log(error, 'Error ao cadastrar'))
+  }
+
+  const handleAddTaskSubmit = async (event: FormEvent) => {
+    event.preventDefault()
+    if (input === '') {
+      window.alert('É obrigatório digitar o nome da tarefa')
+      return
+    }
+    await creatingTaskTheDataBase()
+    setInput('')
+  }
+
+  const handleClickButtonDelete = async (taskId: string) => {
+    await firebase
+      .firestore()
+      .collection('tarefas')
+      .doc(taskId)
+      .delete()
+      .then(() => {
+        const taskDeleted = taskList.filter((item) => item.id !== taskId)
+        setTaskList(taskDeleted)
+      })
+      .catch((error) => console.warn(error))
+  }
+
   return (
     <>
       <Head>
         <title>Minhas tarefas - Board</title>
       </Head>
       <S.Wrapper>
-        <S.Form>
-          <S.InputElement type="text" placeholder="Digite sua tarefa" />
-          <S.ButtonSubmit type="submit">
-            <FiPlus size={25} color="#17181f" />
-          </S.ButtonSubmit>
-        </S.Form>
-        <S.Title>Você tem 2 tarefas!</S.Title>
-        <S.SectionWrapper>
-          <S.TasklList role="article">
-            <p>Aprender a criar projetos usando Next JS.</p>
-            <S.ActionsWrapper>
-              <div>
-                <div>
-                  <FiCalendar size={20} color="#FFB800" />
-                  <time>17 julho 2021</time>
-                </div>
-                <S.ButtonEdit>
-                  <FiEdit2 size={20} color="#FFF" />
-                  <span>Editar</span>
-                </S.ButtonEdit>
-              </div>
-              <S.ButtonDelete>
-                <FiTrash size={20} color="#FF3636" />
-                <span>Excluir</span>
-              </S.ButtonDelete>
-            </S.ActionsWrapper>
-          </S.TasklList>
-        </S.SectionWrapper>
+        <Form
+          input={input}
+          handleAddTaskSubmit={handleAddTaskSubmit}
+          handleChangeInput={handleChangeInput}
+        />
+        <S.Title>
+          Você tem {taskList.length}{' '}
+          {taskList.length === 1 ? 'tarefa!' : 'tarefas!'}
+        </S.Title>
+        <TaskList
+          handleClickButtonDelete={handleClickButtonDelete}
+          tasks={taskList}
+        />
       </S.Wrapper>
 
       <S.ThanksForSupporting>
@@ -57,7 +119,6 @@ const Board: NextPage = () => {
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req })
   if (!session?.user?.name) {
-    // Se o user não estiver logado, vai ser redirecionado
     return {
       redirect: {
         destination: '/',
@@ -65,9 +126,35 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       }
     }
   }
-  console.log(session.user)
+
+  const getTasks = async () => {
+    return await firebase
+      .firestore()
+      .collection('tarefas')
+      .where('userId', '==', session?.id)
+      .orderBy('created', 'asc')
+      .get()
+  }
+  const tasks = await getTasks()
+
+  const data = tasks.docs.map((doc) => {
+    return {
+      ...doc.data(),
+      id: doc.id,
+      createdFormated: format(doc.data().created.toDate(), 'dd MMM yyyy')
+    }
+  })
+
+  const dataUser = {
+    id: session?.id,
+    name: session.user.name
+  }
+
   return {
-    props: {}
+    props: {
+      dataUser,
+      data: JSON.stringify(data)
+    }
   }
 }
 
