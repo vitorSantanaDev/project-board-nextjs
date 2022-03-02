@@ -3,7 +3,7 @@ import { FormEvent, SetStateAction, useState } from 'react'
 import firebase from '../../services/firebaseConnections'
 import { format } from 'date-fns'
 import { GetServerSideProps, NextPage } from 'next'
-import { FiClock } from 'react-icons/fi'
+import { FiClock, FiX } from 'react-icons/fi'
 import { getSession } from 'next-auth/react'
 import SupportButton from '../../components/SupportButton'
 import TaskList from '../../components/TaskList'
@@ -17,7 +17,7 @@ interface DataBoardProps {
   data: string
 }
 
-interface TaskListProps {
+interface Task {
   id: string
   userId: string
   name: string
@@ -28,7 +28,8 @@ interface TaskListProps {
 
 const Board: NextPage<DataBoardProps> = ({ dataUser, data }) => {
   const [input, setInput] = useState<string>('')
-  const [taskList, setTaskList] = useState<TaskListProps[]>(JSON.parse(data))
+  const [taskList, setTaskList] = useState<Task[]>(JSON.parse(data))
+  const [taskEdit, setTaskEdit] = useState<Task | null>(null)
 
   const handleChangeInput = (event: {
     target: { value: SetStateAction<string> }
@@ -66,11 +67,34 @@ const Board: NextPage<DataBoardProps> = ({ dataUser, data }) => {
       window.alert('É obrigatório digitar o nome da tarefa')
       return
     }
+
+    if (taskEdit) {
+      await firebase
+        .firestore()
+        .collection('tarefas')
+        .doc(taskEdit.id)
+        .update({
+          tarefa: input
+        })
+        .then(() => {
+          const data = taskList
+          const taskIndex = taskList.findIndex(
+            (item) => item.id === taskEdit.id
+          )
+          data[taskIndex].tarefa = input
+          setTaskList(data)
+          setTaskEdit(null)
+          setInput('')
+        })
+
+      return
+    }
+
     await creatingTaskTheDataBase()
     setInput('')
   }
 
-  const handleClickButtonDelete = async (taskId: string) => {
+  const handleClickButtonDeleteTask = async (taskId: string) => {
     await firebase
       .firestore()
       .collection('tarefas')
@@ -83,12 +107,30 @@ const Board: NextPage<DataBoardProps> = ({ dataUser, data }) => {
       .catch((error) => console.warn(error))
   }
 
+  const handleClickButtonEditTask = (task: Task) => {
+    setTaskEdit(task)
+    setInput(task.tarefa)
+  }
+
+  const handleClickCancelEdit = () => {
+    setInput('')
+    setTaskEdit(null)
+  }
+
   return (
     <>
       <Head>
         <title>Minhas tarefas - Board</title>
       </Head>
       <S.Wrapper>
+        {taskEdit && (
+          <div className="editTaskWarn">
+            <button onClick={handleClickCancelEdit}>
+              <FiX size={30} color="#FF3636" />
+            </button>
+            <span>Você está editando uma tarefa!</span>
+          </div>
+        )}
         <Form
           input={input}
           handleAddTaskSubmit={handleAddTaskSubmit}
@@ -99,7 +141,8 @@ const Board: NextPage<DataBoardProps> = ({ dataUser, data }) => {
           {taskList.length === 1 ? 'tarefa!' : 'tarefas!'}
         </S.Title>
         <TaskList
-          handleClickButtonDelete={handleClickButtonDelete}
+          handleClickButtonDeleteTask={handleClickButtonDeleteTask}
+          handleClickButtonEditTask={handleClickButtonEditTask}
           tasks={taskList}
         />
       </S.Wrapper>
