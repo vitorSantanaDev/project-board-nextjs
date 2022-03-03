@@ -1,14 +1,20 @@
-import Head from 'next/head'
 import { FormEvent, SetStateAction, useState } from 'react'
+
+import Head from 'next/head'
+import { GetServerSideProps, NextPage } from 'next'
+import { getSession } from 'next-auth/react'
+
 import firebase from '../../services/firebaseConnections'
 import { format } from 'date-fns'
-import { GetServerSideProps, NextPage } from 'next'
-import { FiClock, FiX } from 'react-icons/fi'
-import { getSession } from 'next-auth/react'
+
 import SupportButton from '../../components/SupportButton'
 import TaskList from '../../components/TaskList'
 import Form from '../../components/Form'
+
 import * as S from '../../styles/pages/BoardStyles'
+import EditTaskWarn from '../../components/EditTaskWarn'
+import ThanksForSupporting from '../../components/ThanksForSupporting'
+
 interface DataBoardProps {
   dataUser: {
     id: string
@@ -124,12 +130,7 @@ const Board: NextPage<DataBoardProps> = ({ dataUser, data }) => {
       </Head>
       <S.Wrapper>
         {taskEdit && (
-          <div className="editTaskWarn">
-            <button onClick={handleClickCancelEdit}>
-              <FiX size={30} color="#FF3636" />
-            </button>
-            <span>Você está editando uma tarefa!</span>
-          </div>
+          <EditTaskWarn handleClickCancelEdit={handleClickCancelEdit} />
         )}
         <Form
           input={input}
@@ -146,14 +147,7 @@ const Board: NextPage<DataBoardProps> = ({ dataUser, data }) => {
           tasks={taskList}
         />
       </S.Wrapper>
-
-      <S.ThanksForSupporting>
-        <h3>Obrigado por apoiar esse projeto.</h3>
-        <div>
-          <FiClock size={28} color="#FFF" />
-          <time>Última doação foi a 3 dias.</time>
-        </div>
-      </S.ThanksForSupporting>
+      <ThanksForSupporting />
       <SupportButton />
     </>
   )
