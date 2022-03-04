@@ -1,14 +1,12 @@
-import React from 'react'
-
-import { GetServerSideProps } from 'next'
+import Head from 'next/head'
+import { GetServerSideProps, NextPage } from 'next'
 import { getSession } from 'next-auth/react'
 
 import firebase from '../../services/firebaseConnections'
+import { FiCalendar } from 'react-icons/fi'
 import { format } from 'date-fns'
 
-import * as S from '../../styles/pages/taskDetails'
-import Head from 'next/head'
-import { FiCalendar } from 'react-icons/fi'
+import * as S from '../../styles/pages/taskDetailsStyles'
 
 type Task = {
   id: string
@@ -23,7 +21,7 @@ interface TaskListProps {
   data: string
 }
 
-const DetailsTask: React.FC<TaskListProps> = ({ data }) => {
+const DetailsTask: NextPage<TaskListProps> = ({ data }) => {
   const task = JSON.parse(data) as Task
   return (
     <>
