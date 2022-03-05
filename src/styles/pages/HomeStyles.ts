@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const Wrapper = styled.main`
   max-width: 1120px;
+  min-height: calc(100vh - 6rem);
 
   margin: 0 auto;
   padding: 0 2rem;
@@ -10,6 +11,11 @@ export const Wrapper = styled.main`
   align-items: center;
   flex-direction: column;
   justify-content: center;
+
+  h3 {
+    margin: 1rem 0;
+    font-size: 1.8rem;
+  }
 `
 
 export const Ilustration = styled.img`
@@ -46,8 +52,6 @@ export const ListOfSupporters = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-
-  margin: 2.5rem 0 2.5rem 0;
 
   img {
     width: 65px;

@@ -1,4 +1,15 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
+
+const animationEntry = keyframes`
+  from {
+    opacity: 0;
+    transform: translate3d(0, -50px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+`
 
 export const Wrapper = styled.main`
   max-width: 1120px;
@@ -21,6 +32,8 @@ export const VipMessage = styled.div`
 
   color: #fff;
   background-color: #019950;
+
+  animation: ${animationEntry} forwards ease-in-out 0.5s;
 
   img {
     width: 35px;
