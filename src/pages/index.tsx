@@ -1,8 +1,24 @@
+import { useState } from 'react'
+
 import { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
+
+import firebase from '../services/firebaseConnections'
+
 import * as S from '../styles/pages/HomeStyles'
 
-const Home: NextPage = () => {
+type Donaters = {
+  id: string
+  donate: boolean
+  lastDonate: Date
+  image: string
+}
+interface HomeProps {
+  data: string
+}
+
+const Home: NextPage<HomeProps> = ({ data }) => {
+  const [donaters] = useState<Donaters[]>(JSON.parse(data))
   return (
     <>
       <Head>
@@ -22,11 +38,15 @@ const Home: NextPage = () => {
             <span>100% Gratuita</span> e online
           </S.Description>
         </S.SectionHero>
+        {donaters.length !== 0 && <h3>Apoiadores: </h3>}
         <S.ListOfSupporters>
-          <img
-            src="/images/person-exemple.png"
-            alt="Foto de um homem ruivo com óculos"
-          />
+          {donaters.map((item) => (
+            <img
+              key={item.image}
+              src={item.image}
+              alt="Foto de um homem ruivo com óculos"
+            />
+          ))}
         </S.ListOfSupporters>
       </S.Wrapper>
     </>
@@ -34,8 +54,19 @@ const Home: NextPage = () => {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
+  const donaters = await firebase.firestore().collection('users').get()
+  const data = JSON.stringify(
+    donaters.docs.map((item) => {
+      return {
+        ...item.data(),
+        id: item.id
+      }
+    })
+  )
   return {
-    props: {},
+    props: {
+      data
+    },
     revalidate: 60 * 60
   }
 }

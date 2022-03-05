@@ -1,8 +1,12 @@
 import Head from 'next/head'
 import { GetServerSideProps, NextPage } from 'next'
+
+import { PayPalButtons } from '@paypal/react-paypal-js'
 import { getSession } from 'next-auth/react'
+import firebase from '../../services/firebaseConnections'
 
 import * as S from '../../styles/pages/donateStyles'
+import { useState } from 'react'
 
 interface DonateProps {
   user: {
@@ -13,7 +17,20 @@ interface DonateProps {
 }
 
 const Donate: NextPage<DonateProps> = ({ user }) => {
-  console.log(user)
+  const [vip, setVip] = useState(false)
+  const handleSaveDonate = async () => {
+    await firebase
+      .firestore()
+      .collection('users')
+      .doc(user.id)
+      .set({
+        donate: true,
+        lastDonate: new Date(),
+        image: user.image
+      })
+      .then(() => setVip(true))
+  }
+
   return (
     <>
       <Head>
@@ -25,10 +42,12 @@ const Donate: NextPage<DonateProps> = ({ user }) => {
           alt="Seja um apoiador"
         />
 
-        <S.VipMessage>
-          <img src={user?.image} alt="Foto do novo apoiador!" />
-          <span>Parabéns vcê é um novo apoiador!</span>
-        </S.VipMessage>
+        {vip && (
+          <S.VipMessage>
+            <img src={user?.image} alt="Foto do novo apoiador!" />
+            <span>Parabéns vcê é um novo apoiador!</span>
+          </S.VipMessage>
+        )}
 
         <S.Title>Seja um apoiador desse projeto 🏆</S.Title>
         <S.Subtitle>
@@ -37,6 +56,27 @@ const Donate: NextPage<DonateProps> = ({ user }) => {
         <S.HighlightedMessage>
           Apareça na nossa home, tenha funcionalidades exclusivas
         </S.HighlightedMessage>
+
+        <PayPalButtons
+          createOrder={(data, actions) => {
+            return actions.order.create({
+              purchase_units: [
+                {
+                  amount: {
+                    value: '1'
+                  }
+                }
+              ]
+            })
+          }}
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-expect-error
+          onApprove={(data, actions) => {
+            return actions.order?.capture().then(() => {
+              handleSaveDonate()
+            })
+          }}
+        />
       </S.Wrapper>
     </>
   )
