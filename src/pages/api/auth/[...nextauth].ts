@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { format } from 'date-fns'
 import NextAuth from 'next-auth'
 import GithubProvider from 'next-auth/providers/github'
+import firebase from '../../../services/firebaseConnections'
 
 export default NextAuth({
   providers: [
@@ -12,15 +14,31 @@ export default NextAuth({
   callbacks: {
     async session({ session, token }) {
       try {
+        const lastDonate = await firebase
+          .firestore()
+          .collection('users')
+          .doc(String(token.sub))
+          .get()
+          .then((snapshot) => {
+            if (snapshot.exists) {
+              return snapshot.data()?.lastDonate.toDate()
+            } else {
+              return null
+            }
+          })
         return {
           ...session,
-          id: token.sub
+          id: token.sub,
+          vip: !!lastDonate,
+          lastDonate: lastDonate
         }
       } catch (error) {
         console.log(error)
         return {
           ...session,
-          id: null
+          id: null,
+          vip: false,
+          lasDonate: null
         }
       }
     },
