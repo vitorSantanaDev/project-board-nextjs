@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { format } from 'date-fns'
 import NextAuth from 'next-auth'
 import GithubProvider from 'next-auth/providers/github'
+
+import { format } from 'date-fns'
 import firebase from '../../../services/firebaseConnections'
 
 export default NextAuth({
