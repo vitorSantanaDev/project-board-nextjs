@@ -1,5 +1,9 @@
-import SigInButton from '../SigInButton'
 import Link from 'next/link'
+import Image from 'next/image'
+
+import SigInButton from '../SigInButton'
+import LogoBoard from '../../../public/images/logo.svg'
+
 import * as S from './styles'
 
 const Header: React.FC = () => {
@@ -7,10 +11,14 @@ const Header: React.FC = () => {
     <S.Wrapper>
       <S.HeaderContent>
         <Link href="/">
-          <S.Logo
-            src="/images/small-logo.svg"
-            alt="Logo meu Board, letra B com circulo amarelo ao lado"
-          />
+          <S.Logo>
+            <a href="/">
+              <Image
+                src={LogoBoard}
+                alt="Logo meu Board, letra B com circulo amarelo ao lado"
+              />
+            </a>
+          </S.Logo>
         </Link>
         <S.Navigation>
           <Link href="/">Home</Link>
