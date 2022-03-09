@@ -18,7 +18,7 @@ export const Wrapper = styled.main`
   }
 `
 
-export const Ilustration = styled.img`
+export const Ilustration = styled.div`
   margin-top: 4rem;
 `
 

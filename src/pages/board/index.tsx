@@ -10,15 +10,17 @@ import { format } from 'date-fns'
 import SupportButton from '../../components/SupportButton'
 import TaskList from '../../components/TaskList'
 import Form from '../../components/Form'
+import ThanksForSupporting from '../../components/ThanksForSupporting'
+import EditTaskWarn from '../../components/EditTaskWarn'
 
 import * as S from '../../styles/pages/BoardStyles'
-import EditTaskWarn from '../../components/EditTaskWarn'
-import ThanksForSupporting from '../../components/ThanksForSupporting'
 
 interface DataBoardProps {
   dataUser: {
     id: string
     name: string
+    vip: boolean
+    lastDonate: string | Date
   }
   data: string
 }
@@ -145,9 +147,12 @@ const Board: NextPage<DataBoardProps> = ({ dataUser, data }) => {
           handleClickButtonDeleteTask={handleClickButtonDeleteTask}
           handleClickButtonEditTask={handleClickButtonEditTask}
           tasks={taskList}
+          userIsVip={dataUser.vip}
         />
       </S.Wrapper>
-      <ThanksForSupporting />
+      {dataUser.vip && (
+        <ThanksForSupporting lastDonateUser={dataUser.lastDonate} />
+      )}
       <SupportButton />
     </>
   )
@@ -184,6 +189,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
   const dataUser = {
     id: session?.id,
+    vip: session?.vip,
+    lastDonate: session?.lastDonate,
     name: session.user.name
   }
 

@@ -1,13 +1,16 @@
+import { useState } from 'react'
+
 import Head from 'next/head'
+import Image from 'next/image'
 import { GetServerSideProps, NextPage } from 'next'
 
 import { PayPalButtons } from '@paypal/react-paypal-js'
 import { getSession } from 'next-auth/react'
 import firebase from '../../services/firebaseConnections'
 
-import * as S from '../../styles/pages/donateStyles'
-import { useState } from 'react'
+import DonatePageIllustration from '../../../public/images/illustration-donate-page.svg'
 
+import * as S from '../../styles/pages/donateStyles'
 interface DonateProps {
   user: {
     nome: string
@@ -37,10 +40,12 @@ const Donate: NextPage<DonateProps> = ({ user }) => {
         <title>Ajude a plataforma Board ficar online</title>
       </Head>
       <S.Wrapper>
-        <S.Illustration
-          src="/images/illustration-donate-page.svg"
-          alt="Seja um apoiador"
-        />
+        <S.Illustration>
+          <Image
+            src={DonatePageIllustration}
+            alt="Imagem de um foguete prontoi pra decolar"
+          />
+        </S.Illustration>
 
         {vip && (
           <S.VipMessage>

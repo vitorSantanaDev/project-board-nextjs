@@ -2,8 +2,11 @@ import { useState } from 'react'
 
 import { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
+import Image from 'next/image'
 
 import firebase from '../services/firebaseConnections'
+
+import HeroIllustration from '../../public/images/hero-illustration.svg'
 
 import * as S from '../styles/pages/HomeStyles'
 
@@ -25,11 +28,12 @@ const Home: NextPage<HomeProps> = ({ data }) => {
         <title>Board | Organizando suas tarefas</title>
       </Head>
       <S.Wrapper role="main">
-        <S.Ilustration
-          role="img"
-          src="/images/hero-illustration.svg"
-          alt="Ilustração contendo uma pessoa utilizando um notebook"
-        />
+        <S.Ilustration>
+          <Image
+            src={HeroIllustration}
+            alt="Ilustração contendo uma pessoa utilizando um notebook"
+          />
+        </S.Ilustration>
         <S.SectionHero>
           <S.Title role="heading">
             Uma ferramenta para seu dia a dia Escreva, planeje e organize-se...
@@ -41,11 +45,7 @@ const Home: NextPage<HomeProps> = ({ data }) => {
         {donaters.length !== 0 && <h3>Apoiadores: </h3>}
         <S.ListOfSupporters>
           {donaters.map((item) => (
-            <img
-              key={item.image}
-              src={item.image}
-              alt="Foto de um homem ruivo com óculos"
-            />
+            <img key={item.image} src={item.image} alt="Foto do apoiador" />
           ))}
         </S.ListOfSupporters>
       </S.Wrapper>

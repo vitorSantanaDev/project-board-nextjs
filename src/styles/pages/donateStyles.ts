@@ -49,7 +49,7 @@ export const VipMessage = styled.div`
   }
 `
 
-export const Illustration = styled.img``
+export const Illustration = styled.div``
 
 export const Title = styled.h1`
   margin: 1rem 0;

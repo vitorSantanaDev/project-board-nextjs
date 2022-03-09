@@ -15,8 +15,15 @@ export const HeaderContent = styled.div`
   align-items: center;
 `
 
-export const Logo = styled.img`
+export const Logo = styled.div`
   cursor: pointer;
+
+  img {
+    min-width: 80%;
+    max-width: 80%;
+    min-height: 80%;
+    max-height: 80%;
+  }
 `
 
 export const Navigation = styled.nav`
