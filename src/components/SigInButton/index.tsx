@@ -1,6 +1,8 @@
 import { signIn, signOut, useSession } from 'next-auth/react'
+
 import { FaGithub } from 'react-icons/fa'
 import { FiLogOut } from 'react-icons/fi'
+
 import * as S from './styles'
 
 const SigInButton: React.FC = () => {

@@ -1,15 +1,5 @@
-import styled, { keyframes } from 'styled-components'
-
-const animationEntry = keyframes`
-  from {
-    opacity: 0;
-    transform: translate3d(0, -50px, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-`
+import styled from 'styled-components'
+import { animationEntry } from '../../animations/animationEntry'
 
 export const Wrapper = styled.main`
   max-width: 1120px;

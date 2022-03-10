@@ -8,6 +8,10 @@ export const Wrapper = styled.article`
 
   border-radius: 6px;
   background-color: #17181f;
+
+  @media only screen and (max-width: 1024px) {
+    margin: 2rem 2rem;
+  }
 `
 
 export const ActionsContainer = styled.div`
