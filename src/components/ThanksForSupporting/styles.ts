@@ -8,6 +8,10 @@ export const Wrapper = styled.div`
   margin: 2rem auto;
 
   background-color: #20212c;
+
+  @media only screen and (max-width: 1024px) {
+    margin: 2rem 2rem;
+  }
 `
 
 export const Message = styled.h3`

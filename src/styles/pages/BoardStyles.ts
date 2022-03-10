@@ -8,6 +8,10 @@ export const Wrapper = styled.main`
   margin: 4rem auto;
 
   background-color: #17181f;
+
+  @media only screen and (max-width: 1024px) {
+    margin: 4rem 2rem;
+  }
 `
 
 export const Title = styled.h1`
