@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ThanksForSupporting /> should match snapshot 1`] = `
+.c0 {
+  max-width: 1120px;
+  border-radius: 6px;
+  padding: 2rem;
+  margin: 2rem auto;
+  background-color: #20212c;
+}
+
+.c1 {
+  color: #ffb800;
+  font-size: 2.8rem;
+}
+
+.c2 {
+  margin-top: 3rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c2 > time {
+  color: #fff;
+  font-size: 1.8rem;
+  padding: 1rem;
+}
+
+@media only screen and (max-width:1024px) {
+  .c0 {
+    margin: 2rem 2rem;
+  }
+}
+
+<div
+  class="c0"
+>
+  <h3
+    class="c1"
+  >
+    Obrigado por apoiar esse projeto.
+  </h3>
+  <div
+    class="c2"
+  >
+    <svg
+      color="#FFF"
+      fill="none"
+      height="28"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      style="color: rgb(255, 255, 255);"
+      viewBox="0 0 24 24"
+      width="28"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="10"
+      />
+      <polyline
+        points="12 6 12 12 16 14"
+      />
+    </svg>
+    <time>
+      Última doação foi a
+       
+      35 minutos
+    </time>
+  </div>
+</div>
+`;
