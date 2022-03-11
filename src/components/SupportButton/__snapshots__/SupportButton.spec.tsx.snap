@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SupportButton /> should match snapshot 1`] = `
+.c0 {
+  position: absolute;
+  right: 50px;
+  bottom: 70px;
+  z-index: 999;
+}
+
+.c1 {
+  width: 100px;
+  height: 100px;
+  font-size: 1.6rem;
+  border: 0;
+  border-radius: 50%;
+  background-color: #ffb800;
+  -webkit-filter: drop-shadow(2px 1px 5px rgba(0,0,0,0.3));
+  filter: drop-shadow(2px 1px 5px rgba(0,0,0,0.3));
+  cursor: pointer;
+  -webkit-transition: ease-in-out 0.3s;
+  transition: ease-in-out 0.3s;
+}
+
+.c1:hover {
+  -webkit-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  transform: scale(1.05);
+}
+
+<div
+  class="c0"
+>
+  <button
+    class="c1"
+  >
+    Apoiar
+  </button>
+</div>
+`;

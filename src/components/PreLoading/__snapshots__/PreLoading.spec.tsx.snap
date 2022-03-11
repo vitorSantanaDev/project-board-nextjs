@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PreLoading /> shoul match snapshot 1`] = `
+.c0 {
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  background-color: #17181f;
+  text-align: center;
+  padding: 3rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c1 {
+  width: 25rem;
+  margin-bottom: 2rem;
+}
+
+.c2 {
+  font-size: 2.5rem;
+}
+
+.c3 {
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.c4 {
+  margin-top: 3rem;
+  width: min(30rem,100%);
+}
+
+<main
+  class="c0"
+>
+  <img
+    alt="Uma logo com uma letra 'B' e um círculo amarelo ao lado"
+    class="c1"
+    src="/images/logo.svg"
+  />
+  <h1
+    class="c2"
+  >
+    A simple Project Board in NextJS
+  </h1>
+  <h2
+    class="c3"
+  >
+    TypeScript, ReactJS, NextJS and Styled components
+  </h2>
+  <img
+    alt="Um usuário de tecnologia, de frente pra um notebook."
+    class="c4"
+    src="/images/hero-illustration.svg"
+  />
+</main>
+`;
